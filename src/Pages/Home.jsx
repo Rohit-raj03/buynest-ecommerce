@@ -3,10 +3,14 @@ import { FiArrowRight, FiShoppingBag } from "react-icons/fi";
 
 const Home = () => {
   return (
-    <main className="bg-black text-white flex flex-col min-h-screen ">
+    <main className="bg-black text-white flex flex-col min-h-screen mx-auto max-w-7xl">
       {/* Hero */}
-      <section className="mx-auto max-w-7xl flex flex-col items-center justify-between gap-12 p-6 pt-28 lg:flex-row">
+      <section className=" flex flex-col items-center justify-between gap-12 p-6 pt-28 lg:flex-row relative overflow-hidden z-10">
         {/* Left */}
+        {/* <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-96 w-96 rounded-full bg-orange-500/15 blur-[100px]" /> */}
+        <div className="absolute top-0 left-1/4 -translate-x-1/2 h-110 w-110 rounded-full bg-orange-500/20 blur-[120px]" />
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#ffffff06_1px,transparent_1px),linear-gradient(to_bottom,#ffffff06_1px,transparent_1px)] bg-size-[45px_45px]" />
+
         <div className="max-w-xl">
           <span className="rounded-full border border-orange-500/30 bg-orange-500/10 px-4 py-2 text-sm text-orange-400">
             🔥 New Collection 2026
@@ -29,7 +33,7 @@ const Home = () => {
               <FiArrowRight />
             </button>
 
-            <button className="rounded-xl border border-white/10 bg-white/5 px-6 py-3 transition hover:border-orange-500">
+            <button className="rounded-xl border border-white/10 bg-black px-6 py-3 transition hover:border-orange-500">
               Explore
             </button>
           </div>
@@ -74,54 +78,54 @@ const Home = () => {
         </div>
       </section>
       <hr className="h-0.5 my-4 border border-gray-50/15 " />
-      <section className="max-w-7xl mx-auto px-6 mt-10 relative z-10">
-        <div className="w-full p-4 grid grid-cols- lg:grid-cols-4 gap-6">
+      <section className=" w-full mx-auto px-4 sm:px-6 py-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
           {/* Cart Items */}
-          <div className=" w-full rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 transition hover:-translate-y-2 hover:border-orange-500">
+          <div className="w-full rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 max-h-30 flex flex-col justify-center transition-all duration-300 hover:-translate-y-2 hover:border-orange-500 hover:bg-white/10">
             <h2 className="text-4xl font-bold text-orange-500">0</h2>
 
-            <h3 className="mt-3 text-lg font-semibold text-white">
+            <h3 className="mt-3 text-sm font-semibold text-white">
               Cart Items
             </h3>
 
-            <p className="mt-1 text-gray-400">In your bag</p>
+            <p className="mt-1  text-gray-400 text-xs">In your bag</p>
           </div>
 
           {/* Cart Value */}
-          <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 transition hover:-translate-y-2 hover:border-orange-500">
+          <div className="w-full rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 max-h-30 flex flex-col justify-center transition-all duration-300 hover:-translate-y-2 hover:border-orange-500 hover:bg-white/10">
             <h2 className="text-4xl font-bold text-orange-500">$0.00</h2>
 
-            <h3 className="mt-3 text-lg font-semibold text-white">
+            <h3 className="mt-3 text-sm font-semibold text-white">
               Cart Value
             </h3>
 
-            <p className="mt-1 text-gray-400">Ready to checkout</p>
+            <p className="mt-1 text-gray-400 text-xs">Ready to checkout</p>
           </div>
 
           {/* Top Products */}
-          <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 transition hover:-translate-y-2 hover:border-orange-500">
+          <div className="w-full rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 max-h-30 flex flex-col justify-center transition-all duration-300 hover:-translate-y-2 hover:border-orange-500 hover:bg-white/10">
             <h2 className="text-4xl font-bold text-orange-500">5</h2>
 
-            <h3 className="mt-3 text-lg font-semibold text-white">
+            <h3 className="mt-3 text-sm font-semibold text-white">
               Top Products
             </h3>
 
-            <p className="mt-1 text-gray-400">Highly rated</p>
+            <p className="mt-1 text-gray-400 text-xs">Highly rated</p>
           </div>
 
           {/* Categories */}
-          <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 transition hover:-translate-y-2 hover:border-orange-500">
+          <div className="w-full rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 max-h-30 flex flex-col justify-center transition-all duration-300 hover:-translate-y-2 hover:border-orange-500 hover:bg-white/10">
             <h2 className="text-4xl font-bold text-orange-500">6</h2>
 
-            <h3 className="mt-3 text-lg font-semibold text-white">
+            <h3 className="mt-3 text-sm font-semibold text-white">
               Categories
             </h3>
 
-            <p className="mt-1 text-gray-400">To explore</p>
+            <p className="mt-1 text-gray-400 text-xs">To explore</p>
           </div>
         </div>
       </section>
-      <section className="max-w-7xl mx-auto px-6 py-20">
+      <section className=" w-full mx-auto px-6 py-10">
         <div className="text-center">
           <h2 className="text-4xl font-display font-bold text-white">
             Shop by <span className="text-orange-500">Category</span>
@@ -157,7 +161,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-6 py-20">
+      <section className="w-full  mx-auto px-6 py-20">
         <div className="flex justify-between items-center">
           <div>
             <h2 className="text-4xl font-display font-bold text-white">
@@ -195,8 +199,8 @@ const Home = () => {
           ))}
         </div>
       </section>
-      <section className="max-w-7xl mx-auto px-6 py-20">
-        <div className="relative overflow-hidden rounded-3xl bg-linear-to-r from-orange-500 via-orange-600 to-orange-700 p-8 md:p-12">
+      <section className=" w-full mx-auto px-6 py-20 relative">
+        <div className="relative overflow-hidden z-10 rounded-3xl bg-linear-to-r from-orange-500 via-orange-600 to-orange-700 p-8 md:p-12">
           {/* Background Glow */}
           <div className="absolute -top-20 -right-20 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
           <div className="absolute -bottom-20 -left-20 h-60 w-60 rounded-full bg-yellow-300/20 blur-3xl"></div>
@@ -260,8 +264,8 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section className="m-20">
-        <div className="mx-auto max-w-7xl px-6 ">
+      <section className="w-full mx-auto ">
+        <div className=" px-6 ">
           {/* Heading */}
           <div className="mb-12 text-center">
             <h2 className="font-display text-4xl font-bold text-white">
@@ -320,7 +324,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section className="max-w-7xl mx-auto my-5  ">
+      <section className=" mx-auto my-5  -mb-15 mt-9">
         <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-10 text-center">
           <h2 className="text-2xl font-display font-bold text-white">
             Stay Updated

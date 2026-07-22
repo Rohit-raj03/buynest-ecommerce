@@ -1,7 +1,11 @@
-import React from "react";
-import { FiX, FiTrash2 } from "react-icons/fi";
+import React, { useContext, useState } from "react";
+import { FiX, FiTrash2, FiShoppingBag } from "react-icons/fi";
+import Cart from "./Cart";
+import { AppContext } from "../../context/AppContext";
 
 const CartSidebar = ({ isOpen, setIsOpen }) => {
+  const { cartItems, setCartItems } = useContext(AppContext);
+
   return (
     <>
       {/* Overlay */}
@@ -19,10 +23,11 @@ const CartSidebar = ({ isOpen, setIsOpen }) => {
         }`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-white/10 p-6">
-          <h2 className="text-xl font-display font-bold text-orange-500">
-            Shopping Cart
-          </h2>
+        <div className="flex items-center justify-between border-b-2 border-orange-500/50 p-6">
+          <div className="flex items-center gap-3">
+            <FiShoppingBag className="text-2xl text-orange-500" />
+            <h1 className="text-white font-roboto text-xl">Crat</h1>
+          </div>
 
           <button
             onClick={() => setIsOpen(false)}
@@ -34,40 +39,9 @@ const CartSidebar = ({ isOpen, setIsOpen }) => {
 
         {/* Products */}
         <div className="h-[calc(100vh-250px)] space-y-4 overflow-y-auto p-6">
-          {[1, 2, 3,4,5].map((item) => (
-            <div
-              key={item}
-              className="flex gap-4 rounded-2xl border border-white/10 bg-white/5 p-4"
-            >
-              {/* Product Image */}
-              <div className="h-20 w-20 rounded-xl bg-gray-800"></div>
-
-              {/* Info */}
-              <div className="flex flex-1 flex-col justify-between">
-                <div>
-                  <h3 className="font-semibold text-white">Premium Sneakers</h3>
-
-                  <p className="mt-1 text-sm text-gray-400">₹2,499</p>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  {/* Qty */}
-                  <div className="flex items-center gap-3 rounded-lg border border-white/10 px-3 py-1">
-                    <button className="text-orange-500">-</button>
-
-                    <span className="text-white">1</span>
-
-                    <button className="text-orange-500">+</button>
-                  </div>
-
-                  {/* Delete */}
-                  <button className="rounded-lg p-2 text-red-400 hover:bg-red-500/10">
-                    <FiTrash2 />
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
+          {cartItems.map((elem) => {
+            return <Cart key={elem.id} item={elem} />;
+          })}
         </div>
 
         {/* Footer */}
@@ -78,9 +52,15 @@ const CartSidebar = ({ isOpen, setIsOpen }) => {
             <span className="text-2xl font-bold text-orange-500">₹4,998</span>
           </div>
 
-          <button className="w-full rounded-xl bg-orange-500 py-3 font-semibold text-white transition hover:bg-orange-600">
+          <button className="w-full rounded-xl bg-orange-500 py-3 font-semibold text-white transition hover:bg-orange-600 mb-4">
             Proceed to Checkout
           </button>
+          <h1
+            onClick={() => setCartItems([])}
+            className="text-red-500/70 text-center hover:text-red-500 cursor-pointer"
+          >
+            Clear all
+          </h1>
         </div>
       </aside>
     </>

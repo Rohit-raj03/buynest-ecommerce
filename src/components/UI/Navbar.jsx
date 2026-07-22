@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { React, useState } from "react";
+import { NavLink } from "react-router";
 
 import {
   FiShoppingBag,
@@ -9,7 +10,6 @@ import {
 } from "react-icons/fi";
 
 const Navbar = ({ setIsCartOpen }) => {
-  
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = ["Home", "Shop", "About", "Contact"];
@@ -31,14 +31,11 @@ const Navbar = ({ setIsCartOpen }) => {
 
           {/* Desktop Menu */}
           <ul className="hidden items-center gap-10 md:flex">
-            {navLinks.map((item) => (
-              <li
-                key={item}
-                className="cursor-pointer text-gray-300 transition hover:text-orange-400"
-              >
-                {item}
-              </li>
-            ))}
+            <NavLink to="/" className={`text-orange-500 font-semibold`}>Home</NavLink>
+            <NavLink to="/shop">Shop</NavLink>
+            <NavLink to="/about">About</NavLink>
+            <NavLink to="/contact">Contact</NavLink>
+            <li className="cursor-pointer text-gray-300 transition hover:text-orange-400"></li>
           </ul>
 
           {/* Right */}
@@ -74,7 +71,10 @@ const Navbar = ({ setIsCartOpen }) => {
           <div className="flex items-center gap-3 md:hidden">
             {/* Cart */}
             <button className="relative rounded-xl border border-white/10 bg-white/5 p-2 transition hover:border-orange-500/40 group">
-              <FiShoppingCart className="text-xl text-white transition group-hover:text-orange-500" />
+              <FiShoppingCart
+                onClick={() => setIsCartOpen(true)}
+                className="text-xl text-white transition group-hover:text-orange-500"
+              />
 
               <span className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-orange-500 text-xs text-white">
                 5

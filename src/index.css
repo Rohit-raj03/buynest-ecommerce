@@ -1,9 +1,31 @@
 @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Roboto:wght@400&display=swap");
 
 @import "tailwindcss";
-
-
-@theme{
+@theme {
   --font-display: "Orbitron", sans-serif;
   --font-roboto: "Roboto", sans-serif;
+}
+
+/* Floating Animation */
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+button {
+  cursor: pointer;
+}
+
+.btn-disabled {
+  cursor: not-allowed;
 }
