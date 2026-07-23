@@ -6,6 +6,16 @@ import { AppContext } from "../../context/AppContext";
 const CartSidebar = ({ isOpen, setIsOpen }) => {
   const { cartItems, setCartItems } = useContext(AppContext);
 
+  const getTotalPrice = () => {
+    if (cartItems.length > 0) {
+      return cartItems.reduce((acc, item) => acc + item.price, 0);
+    } else {
+      return 0;
+    }
+  };
+
+  let price = getTotalPrice();
+
   return (
     <>
       {/* Overlay */}
@@ -49,7 +59,7 @@ const CartSidebar = ({ isOpen, setIsOpen }) => {
           <div className="mb-5 flex items-center justify-between">
             <span className="text-lg text-gray-300">Total</span>
 
-            <span className="text-2xl font-bold text-orange-500">₹4,998</span>
+            <span className="text-2xl font-bold text-orange-500">${price.toFixed(2)}</span>
           </div>
 
           <button className="w-full rounded-xl bg-orange-500 py-3 font-semibold text-white transition hover:bg-orange-600 mb-4">
