@@ -3,8 +3,9 @@ import { FiX, FiTrash2, FiShoppingBag } from "react-icons/fi";
 import Cart from "./Cart";
 import { AppContext } from "../../context/AppContext";
 
-const CartSidebar = ({ isOpen, setIsOpen }) => {
-  const { cartItems, setCartItems } = useContext(AppContext);
+const CartSidebar = ({}) => {
+  const { cartItems, setCartItems, isCartOpen, setIsCartOpen } =
+    useContext(AppContext);
 
   const getTotalPrice = () => {
     if (cartItems.length > 0) {
@@ -19,17 +20,17 @@ const CartSidebar = ({ isOpen, setIsOpen }) => {
   return (
     <>
       {/* Overlay */}
-      {isOpen && (
+      {isCartOpen && (
         <div
-          onClick={() => setIsOpen(false)}
-          className="fixed inset-0 z-45 bg-black/60 backdrop-blur-sm"
+          onClick={() => setIsCartOpen(false)}
+          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
         />
       )}
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 right-0 z-50 h-screen w-full max-w-md bg-black backdrop-blur-2xl border-l border-white/10 shadow-2xl transition-transform duration-300 ${
-          isOpen ? "translate-x-0" : "translate-x-full"
+        className={`fixed top-0 right-0 z-51 h-screen w-full max-w-md bg-black  border-l border-white/10 shadow-2xl transition-transform duration-300 ${
+          isCartOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         {/* Header */}
@@ -40,7 +41,7 @@ const CartSidebar = ({ isOpen, setIsOpen }) => {
           </div>
 
           <button
-            onClick={() => setIsOpen(false)}
+            onClick={() => setIsCartOpen(false)}
             className="rounded-xl border border-white/10 bg-white/5 p-2 hover:border-orange-500"
           >
             <FiX className="text-2xl text-white" />
@@ -59,7 +60,9 @@ const CartSidebar = ({ isOpen, setIsOpen }) => {
           <div className="mb-5 flex items-center justify-between">
             <span className="text-lg text-gray-300">Total</span>
 
-            <span className="text-2xl font-bold text-orange-500">${price.toFixed(2)}</span>
+            <span className="text-2xl font-bold text-orange-500">
+              ${price.toFixed(2)}
+            </span>
           </div>
 
           <button className="w-full rounded-xl bg-orange-500 py-3 font-semibold text-white transition hover:bg-orange-600 mb-4">

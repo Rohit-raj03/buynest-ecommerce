@@ -1,5 +1,6 @@
-import { React, useState } from "react";
-import { NavLink } from "react-router";
+import { React, useEffect, useState, useContext } from "react";
+import { NavLink, useNavigate } from "react-router";
+import { AppContext } from "../../context/AppContext";
 
 import {
   FiShoppingBag,
@@ -9,11 +10,22 @@ import {
   FiLogOut,
 } from "react-icons/fi";
 
-const Navbar = ({ setIsCartOpen }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const Navbar = () => {
+  const { setIsCartOpen, setIsOpen, isOpen, setLoggedInUser } =
+    useContext(AppContext);
 
-  const navLinks = ["Home", "Shop", "About", "Contact"];
+  const navigate = useNavigate();
 
+  const navLinks = [
+    { name: "Home", path: "/app" },
+    { name: "Shop", path: "/app/shop" },
+    { name: "About", path: "/app/about" },
+    { name: "Contact", path: "/app/contact" },
+  ];
+  const logOut = () => {
+    setLoggedInUser(null);
+    localStorage.removeItem("loggedInUser");
+  };
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b  border-white/10 bg-white/10 backdrop-blur-xl shadow-2xl">
       <nav className=" mx-auto max-w-7xl  ">
@@ -30,12 +42,23 @@ const Navbar = ({ setIsCartOpen }) => {
           </div>
 
           {/* Desktop Menu */}
-          <ul className="hidden items-center gap-10 md:flex">
-            <NavLink to="/" className={`text-orange-500 font-semibold`}>Home</NavLink>
-            <NavLink to="/shop">Shop</NavLink>
-            <NavLink to="/about">About</NavLink>
-            <NavLink to="/contact">Contact</NavLink>
-            <li className="cursor-pointer text-gray-300 transition hover:text-orange-400"></li>
+          <ul className="hidden items-center gap-8 md:flex">
+            {navLinks.map((item) => (
+              <NavLink
+                key={item.path}
+                to={item.path}
+                end={item.path === "/"}
+                className={({ isActive }) =>
+                  `relative transition duration-300 ${
+                    isActive
+                      ? "text-orange-500"
+                      : "text-gray-300 hover:text-orange-400"
+                  }`
+                }
+              >
+                {item.name}
+              </NavLink>
+            ))}
           </ul>
 
           {/* Right */}
@@ -61,7 +84,10 @@ const Navbar = ({ setIsCartOpen }) => {
               </span>
             </button>
             {/* Logout */}
-            <button className=" group cursor-pointer rounded-xl border border-white/10 bg-white/5 p-2 transition hover:text-red-500/15 hover:bg-red-500/15 hover:border-red-500/70">
+            <button
+              onClick={() => logOut()}
+              className=" group cursor-pointer rounded-xl border border-white/10 bg-white/5 p-2 transition hover:text-red-500/15 hover:bg-red-500/15 hover:border-red-500/70"
+            >
               <FiLogOut className="text-xl text-white group-hover:text-red-500/70" />
             </button>
           </div>
@@ -70,11 +96,11 @@ const Navbar = ({ setIsCartOpen }) => {
           {/* Mobile Right */}
           <div className="flex items-center gap-3 md:hidden">
             {/* Cart */}
-            <button className="relative rounded-xl border border-white/10 bg-white/5 p-2 transition hover:border-orange-500/40 group">
-              <FiShoppingCart
-                onClick={() => setIsCartOpen(true)}
-                className="text-xl text-white transition group-hover:text-orange-500"
-              />
+            <button
+              onClick={() => setIsCartOpen(true)}
+              className="relative rounded-xl border border-white/10 bg-white/5 p-2 transition hover:border-orange-500/40 group"
+            >
+              <FiShoppingCart className="text-xl text-white transition group-hover:text-orange-500" />
 
               <span className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-orange-500 text-xs text-white">
                 5
@@ -83,7 +109,9 @@ const Navbar = ({ setIsCartOpen }) => {
 
             {/* Menu */}
             <button
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={() => {
+                setIsOpen(!isOpen);
+              }}
               className="rounded-xl border border-white/10 bg-white/5 p-2 transition hover:border-orange-500/40 group text-sm"
             >
               {isOpen ? (
@@ -98,14 +126,22 @@ const Navbar = ({ setIsCartOpen }) => {
         {/* Mobile Menu */}
         {isOpen && (
           <div className="border-t border-white/10 px-6 py-5 md:hidden">
-            <ul className="space-y-5">
+            <ul className="space-y-5 flex flex-col gap-2">
               {navLinks.map((item) => (
-                <li
-                  key={item}
-                  className="cursor-pointer text-gray-300 hover:text-orange-400"
+                <NavLink
+                  key={item.path}
+                  to={item.path}
+                  end={item.path === "/"}
+                  className={({ isActive }) =>
+                    `relative transition duration-300  ${
+                      isActive
+                        ? "text-orange-500"
+                        : "text-gray-300 hover:text-orange-400"
+                    }`
+                  }
                 >
-                  {item}
-                </li>
+                  {item.name}
+                </NavLink>
               ))}
             </ul>
 
@@ -118,8 +154,11 @@ const Navbar = ({ setIsCartOpen }) => {
                 <span className="text-white">Rohit Raj</span>
               </div>
 
-              <button className="rounded-xl bg-orange-500 p-3">
-                <FiLogOut className="text-xl text-white" />
+              <button
+                onClick={() => logOut()}
+                className="group cursor-pointer rounded-xl border border-white/10 bg-white/5 p-2 transition hover:text-red-500/15 hover:bg-red-500/15 hover:border-red-500/70"
+              >
+                <FiLogOut className="text-xl text-white group-hover:text-red-500/70" />
               </button>
             </div>
           </div>
