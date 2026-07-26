@@ -1,5 +1,5 @@
 import { React, useEffect, useState, useContext } from "react";
-import { NavLink, useNavigate } from "react-router";
+import { NavLink, replace, useNavigate } from "react-router";
 import { AppContext } from "../../context/AppContext";
 
 import {
@@ -11,11 +11,19 @@ import {
 } from "react-icons/fi";
 
 const Navbar = () => {
-  const { setIsCartOpen, setIsOpen, isOpen, setLoggedInUser } =
-    useContext(AppContext);
+  const {
+    setIsCartOpen,
+    setIsOpen,
+    isOpen,
+    setLoggedInUser,
+    loggedInUser,
+    totalAmountOfCartItems,
+    numberOfCartItems,
+  } = useContext(AppContext);
 
   const navigate = useNavigate();
-
+  const user = JSON.parse(localStorage.getItem("loggedInUser"));
+  // toUpperCase();
   const navLinks = [
     { name: "Home", path: "/app" },
     { name: "Shop", path: "/app/shop" },
@@ -25,6 +33,7 @@ const Navbar = () => {
   const logOut = () => {
     setLoggedInUser(null);
     localStorage.removeItem("loggedInUser");
+    navigate("/");
   };
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b  border-white/10 bg-white/10 backdrop-blur-xl shadow-2xl">
@@ -47,7 +56,7 @@ const Navbar = () => {
               <NavLink
                 key={item.path}
                 to={item.path}
-                end={item.path === "/"}
+                end
                 className={({ isActive }) =>
                   `relative transition duration-300 ${
                     isActive
@@ -64,12 +73,12 @@ const Navbar = () => {
           {/* Right */}
           <div className="hidden items-center gap-4 md:flex">
             {/* User */}
-            <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-2 py-1.5">
-              <div className="flex px-2 items-center justify-center rounded-full bg-orange-500  text-white">
-                R
+            <div className="flex gap-2 rounded-xl border border-white/10 bg-white/5 p-1 pr-2 ">
+              <div className="flex items-center justify-center rounded-lg bg-orange-500  text-white h-6 w-6">
+                {user.name[0].toUpperCase()}
               </div>
               <div>
-                <p className="text-sm font-light text-white">Rohit Raj</p>
+                <p className="text-sm my-auto font-light  text-white">{user.name}</p>
               </div>
             </div>
             {/* Cart */}
@@ -80,7 +89,7 @@ const Navbar = () => {
               <FiShoppingCart className="text-xl text-white transition group-hover:text-orange-500" />
 
               <span className="absolute -right-1.5 -top-1.5 flex h-3 w-3 items-center justify-center rounded-full bg-orange-500 text-xs  text-white p-2">
-                5
+               {numberOfCartItems}
               </span>
             </button>
             {/* Logout */}
@@ -103,7 +112,7 @@ const Navbar = () => {
               <FiShoppingCart className="text-xl text-white transition group-hover:text-orange-500" />
 
               <span className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-orange-500 text-xs text-white">
-                5
+                {numberOfCartItems}
               </span>
             </button>
 
@@ -131,7 +140,7 @@ const Navbar = () => {
                 <NavLink
                   key={item.path}
                   to={item.path}
-                  end={item.path === "/"}
+                  end
                   className={({ isActive }) =>
                     `relative transition duration-300  ${
                       isActive
@@ -147,11 +156,11 @@ const Navbar = () => {
 
             <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-5">
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-500 text-white">
-                  R
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-500 text-white font-medium">
+                  {user.name[0].toUpperCase()}
                 </div>
 
-                <span className="text-white">Rohit Raj</span>
+                <span className="text-white ">{user.name}</span>
               </div>
 
               <button

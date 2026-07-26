@@ -2,20 +2,17 @@ import React, { useContext, useState } from "react";
 import { FiX, FiTrash2, FiShoppingBag } from "react-icons/fi";
 import Cart from "./Cart";
 import { AppContext } from "../../context/AppContext";
+import { toast } from "react-toastify";
 
-const CartSidebar = ({}) => {
-  const { cartItems, setCartItems, isCartOpen, setIsCartOpen } =
-    useContext(AppContext);
-
-  const getTotalPrice = () => {
-    if (cartItems.length > 0) {
-      return cartItems.reduce((acc, item) => acc + item.price, 0);
-    } else {
-      return 0;
-    }
-  };
-
-  let price = getTotalPrice();
+const CartSidebar = () => {
+  const {
+    cartItems,
+    setCartItems,
+    isCartOpen,
+    setIsCartOpen,
+    numberOfCartItems,
+    totalAmountOfCartItems,
+  } = useContext(AppContext);
 
   return (
     <>
@@ -38,6 +35,9 @@ const CartSidebar = ({}) => {
           <div className="flex items-center gap-3">
             <FiShoppingBag className="text-2xl text-orange-500" />
             <h1 className="text-white font-roboto text-xl">Crat</h1>
+            <div className="rounded-full border border-orange-500/30 bg-orange-500/10 py-0.5 px-2.5  text-orange-400 text-xs font-medium">
+              <span>{numberOfCartItems}</span> itmes
+            </div>
           </div>
 
           <button
@@ -50,7 +50,7 @@ const CartSidebar = ({}) => {
 
         {/* Products */}
         <div className="h-[calc(100vh-250px)] space-y-4 overflow-y-auto p-6">
-          {cartItems.map((elem) => {
+          {cartItems.map((elem, index) => {
             return <Cart key={elem.id} item={elem} />;
           })}
         </div>
@@ -61,15 +61,25 @@ const CartSidebar = ({}) => {
             <span className="text-lg text-gray-300">Total</span>
 
             <span className="text-2xl font-bold text-orange-500">
-              ${price.toFixed(2)}
+              ${totalAmountOfCartItems}
             </span>
           </div>
 
-          <button className="w-full rounded-xl bg-orange-500 py-3 font-semibold text-white transition hover:bg-orange-600 mb-4">
+          <button
+            onClick={() => {
+              localStorage.removeItem("cartItems");
+              setCartItems([]);
+              toast.success("Order placed successfully 🎉");
+            }}
+            className="w-full rounded-xl bg-orange-500 py-3 font-semibold text-white transition hover:bg-orange-600 mb-4"
+          >
             Proceed to Checkout
           </button>
           <h1
-            onClick={() => setCartItems([])}
+            onClick={() => {
+              localStorage.removeItem("cartItems");
+              setCartItems([]);
+            }}
             className="text-red-500/70 text-center hover:text-red-500 cursor-pointer"
           >
             Clear all

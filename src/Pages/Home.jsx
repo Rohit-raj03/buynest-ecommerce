@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FiArrowRight, FiShoppingBag } from "react-icons/fi";
+import { useNavigate } from "react-router";
+import { AppContext } from "../context/AppContext";
 
 const Home = () => {
+  const { numberOfCartItems, totalAmountOfCartItems, FlashSaleTimer } =
+    useContext(AppContext);
+  const { hours, minutes, seconds } = FlashSaleTimer();
+  const navigate = useNavigate();
+
   return (
     <main className="bg-black text-white flex flex-col min-h-screen mx-auto max-w-7xl">
       {/* Hero */}
       <section className=" flex flex-col items-center justify-between gap-12 p-6 pt-28 lg:flex-row relative overflow-hidden z-10">
         {/* Left */}
         {/* <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-96 w-96 rounded-full bg-orange-500/15 blur-[100px]" /> */}
-        <div className="absolute top-0 left-1/4 -translate-x-1/2 h-110 w-110 rounded-full bg-orange-500/20 blur-[120px]" />
+        <div className="absolute top-0 left-1/4 -translate-x-1/2 h-100 w-100 rounded-full bg-orange-500/20 blur-[120px]" />
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#ffffff06_1px,transparent_1px),linear-gradient(to_bottom,#ffffff06_1px,transparent_1px)] bg-size-[45px_45px]" />
 
         <div className="max-w-xl">
@@ -28,12 +35,18 @@ const Home = () => {
           </p>
 
           <div className="mt-8 flex gap-4">
-            <button className="flex items-center gap-2 rounded-xl bg-orange-500 px-6 py-3 font-semibold transition hover:bg-orange-600">
+            <button
+              onClick={() => navigate("/app/shop")}
+              className=" group flex items-center gap-2 rounded-xl bg-orange-500 px-6 py-3 font-semibold transition hover:bg-orange-600"
+            >
               Shop Now
-              <FiArrowRight />
+              <FiArrowRight className="group-hover:cursor-pointer" />
             </button>
 
-            <button className="rounded-xl border border-white/10 bg-black px-6 py-3 transition hover:border-orange-500">
+            <button
+              onClick={() => navigate("/app/about")}
+              className="rounded-xl border border-white/10 bg-black px-6 py-3 transition hover:border-orange-500"
+            >
               Explore
             </button>
           </div>
@@ -71,7 +84,10 @@ const Home = () => {
               Premium Shopping Experience
             </p>
 
-            <button className="mt-8 w-full rounded-xl bg-orange-500 py-3 font-semibold transition hover:bg-orange-600">
+            <button
+              onClick={() => navigate("/app/shop")}
+              className="mt-8 w-full rounded-xl bg-orange-500 py-3 font-semibold transition hover:bg-orange-600"
+            >
               Start Shopping
             </button>
           </div>
@@ -82,8 +98,9 @@ const Home = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
           {/* Cart Items */}
           <div className="w-full rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 max-h-30 flex flex-col justify-center transition-all duration-300 hover:-translate-y-2 hover:border-orange-500 hover:bg-white/10">
-            <h2 className="text-4xl font-bold text-orange-500">0</h2>
-
+            <h2 className="text-4xl font-bold text-orange-500">
+              {numberOfCartItems}
+            </h2>
             <h3 className="mt-3 text-sm font-semibold text-white">
               Cart Items
             </h3>
@@ -93,7 +110,9 @@ const Home = () => {
 
           {/* Cart Value */}
           <div className="w-full rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 max-h-30 flex flex-col justify-center transition-all duration-300 hover:-translate-y-2 hover:border-orange-500 hover:bg-white/10">
-            <h2 className="text-4xl font-bold text-orange-500">$0.00</h2>
+            <h2 className="text-4xl font-bold text-orange-500">
+              ${totalAmountOfCartItems}
+            </h2>
 
             <h3 className="mt-3 text-sm font-semibold text-white">
               Cart Value
@@ -199,7 +218,7 @@ const Home = () => {
           ))}
         </div>
       </section>
-      <section className=" w-full mx-auto px-6 py-20 relative">
+      <section className=" w-full mx-auto px-6 py-20">
         <div className="relative overflow-hidden z-10 rounded-3xl bg-linear-to-r from-orange-500 via-orange-600 to-orange-700 p-8 md:p-12">
           {/* Background Glow */}
           <div className="absolute -top-20 -right-20 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
@@ -229,7 +248,8 @@ const Home = () => {
                 <span>↩️ Easy Returns</span>
               </div>
 
-              <button className="mt-8 rounded-xl bg-white px-8 py-4 font-semibold text-orange-600 transition hover:scale-105 hover:bg-gray-100">
+              <button onClick={()=>{navigate('/app/shop')}}
+               className="mt-8 rounded-xl bg-white px-8 py-4 font-semibold text-orange-600 transition hover:scale-105 hover:bg-gray-100">
                 Shop Now →
               </button>
             </div>
@@ -242,23 +262,23 @@ const Home = () => {
 
               <div className="flex gap-4">
                 <div className="rounded-2xl bg-white/20 px-5 py-4 backdrop-blur-md">
-                  <h3 className="text-3xl font-bold text-white">12</h3>
+                  <h3 className="text-3xl font-bold text-white">{hours}</h3>
                   <p className="text-sm text-orange-100">Hours</p>
                 </div>
 
                 <div className="rounded-2xl bg-white/20 px-5 py-4 backdrop-blur-md">
-                  <h3 className="text-3xl font-bold text-white">45</h3>
+                  <h3 className="text-3xl font-bold text-white">{minutes}</h3>
                   <p className="text-sm text-orange-100">Minutes</p>
                 </div>
 
                 <div className="rounded-2xl bg-white/20 px-5 py-4 backdrop-blur-md">
-                  <h3 className="text-3xl font-bold text-white">18</h3>
+                  <h3 className="text-3xl font-bold text-white">{seconds}</h3>
                   <p className="text-sm text-orange-100">Seconds</p>
                 </div>
               </div>
 
-              <p className="mt-6 text-sm text-orange-100">
-                ⏳ Hurry! Limited stock available.
+              <p className="mt-6 text-xl text-orange-100" >
+               <span className=" inline-block animate-rotate-pause">⏳</span>  Hurry! Limited stock available.
               </p>
             </div>
           </div>
@@ -324,7 +344,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section className=" mx-auto my-5  -mb-15 mt-9">
+      <section className=" w-full  max-w-xl mx-auto px-6 py-20 -mb-15">
         <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-10 text-center">
           <h2 className="text-2xl font-display font-bold text-white">
             Stay Updated

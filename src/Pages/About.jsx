@@ -47,8 +47,8 @@ const values = [
 export default function About() {
   return (
     <section className="bg-black text-white min-h-screen py-20 px-6">
-      <div className=" w-fit rounded-xl bg-orange-500 p-4 mx-auto my-10 animate-[float_4s_ease-in-out_infinite] shadow-xl shadow-orange-500/50">
-        <FiShoppingBag className="text-3xl text-white" />
+      <div className=" w-fit rounded-xl bg-orange-500/10 border border-orange-500/20 text-orange-400 p-4 mx-auto my-10 animate-[float_4s_ease-in-out_infinite] shadow-[0_0_30px_rgba(249,115,22,0.30)]  ">
+        <FiShoppingBag className="text-4xl" />
       </div>
       <div className="max-w-7xl mx-auto">
         {/* Heading */}

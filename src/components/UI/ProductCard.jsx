@@ -5,6 +5,7 @@ import { TiTick } from "react-icons/ti";
 import { AppContext } from "../../context/AppContext";
 
 const ProductCard = ({ product, addItems, isInCart }) => {
+  
   const { productsData, setProductsData, cartItems, setCartItems } =
     useContext(AppContext);
 

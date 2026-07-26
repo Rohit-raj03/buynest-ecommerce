@@ -4,6 +4,7 @@ import ProductCard from "../components/UI/ProductCard";
 import axios from "axios";
 import { useEffect } from "react";
 import { AppContext } from "../context/AppContext";
+import { toast } from "react-toastify";
 
 const Shop = () => {
   const { productsData, setProductsData, cartItems, setCartItems } =
@@ -13,6 +14,7 @@ const Shop = () => {
     try {
       let res = await axios("https://dummyjson.com/products");
       setProductsData(res.data.products);
+      console.log(res.data.products);
     } catch (error) {
       console.log("API error", error);
     }
@@ -22,13 +24,18 @@ const Shop = () => {
   }, []);
 
   const addItems = (id) => {
-    let items = productsData.find((itme) => {
-      return itme.id === id;
+    let item = productsData.find((val) => {
+      return val.id === id;
     });
-    setCartItems((prev) => [...prev, items]);
-    console.log(cartItems);
+    setCartItems((prev) => {const updatedItme = [...prev,{ ...item, quantity: 1 }];
+      localStorage.setItem("cartItems", JSON.stringify(updatedItme));
+      return updatedItme;
+    });
+
+    toast.success("item add to cart");
   };
 
+  
   return (
     <section className="min-h-screen pt-28 pb-16">
       <div className="mx-auto max-w-7xl px-6">

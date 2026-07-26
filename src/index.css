@@ -29,3 +29,31 @@ button {
 .btn-disabled {
   cursor: not-allowed;
 }
+
+@theme {
+  --animate-rotate-pause: rotate-pause 4s linear infinite;
+
+  @keyframes rotate-pause {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    
+    25% {
+      transform: rotate(180deg);
+    }
+    
+    50% {
+      transform: rotate(180deg);
+    }
+    75% {
+      transform: rotate(360deg);
+    }
+    
+
+    100% {
+      transform: rotate(360deg);
+    }
+
+  }
+}
