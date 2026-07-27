@@ -115,10 +115,14 @@ const Navbar = () => {
               className="relative rounded-xl border border-white/10 bg-white/5 p-2 transition hover:border-orange-500/40 group"
             >
               <FiShoppingCart className="text-xl text-white transition group-hover:text-orange-500" />
-
-              <span className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-orange-500 text-xs text-white">
-                {numberOfCartItems}
-              </span>
+              {}
+              {numberOfCartItems > 0 ? (
+                <span className="absolute -right-1.5 -top-1.5 flex h-3 w-3 items-center justify-center rounded-full bg-orange-500 text-xs  text-white p-2">
+                  {numberOfCartItems}
+                </span>
+              ) : (
+                ""
+              )}
             </button>
 
             {/* Menu */}
