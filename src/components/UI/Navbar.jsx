@@ -78,7 +78,9 @@ const Navbar = () => {
                 {user.name[0].toUpperCase()}
               </div>
               <div>
-                <p className="text-sm my-auto font-light  text-white">{user.name}</p>
+                <p className="text-sm my-auto font-light  text-white">
+                  {user.name}
+                </p>
               </div>
             </div>
             {/* Cart */}
@@ -87,10 +89,13 @@ const Navbar = () => {
               className="relative  cursor-pointer rounded-xl border  border-white/10 bg-white/5 p-2 transition group hover:border-orange-500/40"
             >
               <FiShoppingCart className="text-xl text-white transition group-hover:text-orange-500" />
-
-              <span className="absolute -right-1.5 -top-1.5 flex h-3 w-3 items-center justify-center rounded-full bg-orange-500 text-xs  text-white p-2">
-               {numberOfCartItems}
-              </span>
+              {numberOfCartItems > 0 ? (
+                <span className="absolute -right-1.5 -top-1.5 flex h-3 w-3 items-center justify-center rounded-full bg-orange-500 text-xs  text-white p-2">
+                  {numberOfCartItems}
+                </span>
+              ) : (
+                ""
+              )}
             </button>
             {/* Logout */}
             <button

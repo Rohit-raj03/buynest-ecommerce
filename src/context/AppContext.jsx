@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { poducts } from "../assets/products.";
 
 export const AppContext = createContext();
 
@@ -17,7 +18,12 @@ export const ContextProvider = ({ children }) => {
   );
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-
+  console.log(
+    productsData.map((val) => {
+      console.log(val.category);
+    }),
+  );
+  // console.log(productsData)
   const numberOfCartItems = cartItems.reduce(
     (acc, item) => acc + item.quantity,
     0,

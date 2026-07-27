@@ -2,10 +2,15 @@ import React, { useContext } from "react";
 import { FiArrowRight, FiShoppingBag } from "react-icons/fi";
 import { useNavigate } from "react-router";
 import { AppContext } from "../context/AppContext";
+import Card from "../components/UI/Card";
 
 const Home = () => {
-  const { numberOfCartItems, totalAmountOfCartItems, FlashSaleTimer } =
-    useContext(AppContext);
+  const {
+    numberOfCartItems,
+    totalAmountOfCartItems,
+    FlashSaleTimer,
+    productsData,
+  } = useContext(AppContext);
   const { hours, minutes, seconds } = FlashSaleTimer();
   const navigate = useNavigate();
 
@@ -180,42 +185,39 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="w-full  mx-auto px-6 py-20">
-        <div className="flex justify-between items-center">
-          <div>
-            <h2 className="text-4xl font-display font-bold text-white">
-              Featured <span className="text-orange-500">Products</span>
-            </h2>
+      <section className="mx-auto mt-20 max-w-7xl px-6">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 border">
+          {/* Top Rated */}
+          <div className="border p-8">
+            <div className="mb-6 flex items-center justify-between">
+              <h2 className="text-2xl font-bold text-white">⭐ Top Rated</h2>
 
-            <p className="text-gray-400 mt-2">
-              Handpicked products just for you.
-            </p>
+              <button className="text-orange-500 hover:underline">
+                See All
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              {productsData.map((val) => {
+                return <Card key={val.id} item={val} />;
+              })}
+            </div>
           </div>
 
-          <button className="text-orange-500 hover:underline">View All</button>
-        </div>
+          {/* Premium Products */}
+          <div>
+            <div className="mb-6 flex items-center justify-between">
+              <h2 className="text-2xl font-bold text-white">
+                💎 Premium Products
+              </h2>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
-          {[1, 2, 3, 4].map((item) => (
-            <div
-              key={item}
-              className="rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl overflow-hidden hover:border-orange-500 transition"
-            >
-              <div className="h-60 bg-gray-800 flex items-center justify-center text-gray-500">
-                Product Image
-              </div>
-
-              <div className="p-5">
-                <h3 className="text-white font-semibold">Premium Sneakers</h3>
-
-                <p className="text-orange-500 font-bold text-xl mt-2">₹2,499</p>
-
-                <button className="w-full mt-5 bg-orange-500 py-3 rounded-xl hover:bg-orange-600 transition">
-                  Add to Cart
-                </button>
-              </div>
+              <button className="text-orange-500 hover:underline">
+                See All
+              </button>
             </div>
-          ))}
+
+            <div className="space-y-4">{/* Card */}</div>
+          </div>
         </div>
       </section>
       <section className=" w-full mx-auto px-6 py-20">
@@ -248,8 +250,12 @@ const Home = () => {
                 <span>↩️ Easy Returns</span>
               </div>
 
-              <button onClick={()=>{navigate('/app/shop')}}
-               className="mt-8 rounded-xl bg-white px-8 py-4 font-semibold text-orange-600 transition hover:scale-105 hover:bg-gray-100">
+              <button
+                onClick={() => {
+                  navigate("/app/shop");
+                }}
+                className="mt-8 rounded-xl bg-white px-8 py-4 font-semibold text-orange-600 transition hover:scale-105 hover:bg-gray-100"
+              >
                 Shop Now →
               </button>
             </div>
@@ -277,8 +283,9 @@ const Home = () => {
                 </div>
               </div>
 
-              <p className="mt-6 text-xl text-orange-100" >
-               <span className=" inline-block animate-rotate-pause">⏳</span>  Hurry! Limited stock available.
+              <p className="mt-6 text-xl text-orange-100">
+                <span className=" inline-block animate-rotate-pause">⏳</span>{" "}
+                Hurry! Limited stock available.
               </p>
             </div>
           </div>

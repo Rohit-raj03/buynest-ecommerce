@@ -14,7 +14,6 @@ const Shop = () => {
     try {
       let res = await axios("https://dummyjson.com/products");
       setProductsData(res.data.products);
-      console.log(res.data.products);
     } catch (error) {
       console.log("API error", error);
     }
@@ -27,7 +26,8 @@ const Shop = () => {
     let item = productsData.find((val) => {
       return val.id === id;
     });
-    setCartItems((prev) => {const updatedItme = [...prev,{ ...item, quantity: 1 }];
+    setCartItems((prev) => {
+      const updatedItme = [...prev, { ...item, quantity: 1 }];
       localStorage.setItem("cartItems", JSON.stringify(updatedItme));
       return updatedItme;
     });
@@ -35,7 +35,6 @@ const Shop = () => {
     toast.success("item add to cart");
   };
 
-  
   return (
     <section className="min-h-screen pt-28 pb-16">
       <div className="mx-auto max-w-7xl px-6">

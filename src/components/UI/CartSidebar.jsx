@@ -1,10 +1,13 @@
 import React, { useContext, useState } from "react";
-import { FiX, FiTrash2, FiShoppingBag } from "react-icons/fi";
+import { FiX, FiTrash2, FiShoppingBag, FiShoppingCart } from "react-icons/fi";
 import Cart from "./Cart";
 import { AppContext } from "../../context/AppContext";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
 const CartSidebar = () => {
+  
+  const navigate = useNavigate() 
   const {
     cartItems,
     setCartItems,
@@ -13,7 +16,7 @@ const CartSidebar = () => {
     numberOfCartItems,
     totalAmountOfCartItems,
   } = useContext(AppContext);
-
+console.log(numberOfCartItems)
   return (
     <>
       {/* Overlay */}
@@ -47,44 +50,71 @@ const CartSidebar = () => {
             <FiX className="text-2xl text-white" />
           </button>
         </div>
-
         {/* Products */}
-        <div className="h-[calc(100vh-250px)] space-y-4 overflow-y-auto p-6">
-          {cartItems.map((elem, index) => {
-            return <Cart key={elem.id} item={elem} />;
-          })}
-        </div>
+        {numberOfCartItems ? (
+          <>
+            <div className="h-[calc(100vh-250px)] space-y-4 overflow-y-auto p-6">
+              {cartItems.map((elem, index) => {
+                return <Cart key={elem.id} item={elem} />;
+              })}
+            </div>
 
-        {/* Footer */}
-        <div className="absolute bottom-0 left-0 w-full border-t border-white/10 bg-black p-6">
-          <div className="mb-5 flex items-center justify-between">
-            <span className="text-lg text-gray-300">Total</span>
+            {/* Footer */}
+            <div className="absolute bottom-0 left-0 w-full border-t border-white/10 bg-black p-6">
+              <div className="mb-5 flex items-center justify-between">
+                <span className="text-lg text-gray-300">Total</span>
 
-            <span className="text-2xl font-bold text-orange-500">
-              ${totalAmountOfCartItems}
-            </span>
+                <span className="text-2xl font-bold text-orange-500">
+                  ${totalAmountOfCartItems}
+                </span>
+              </div>
+
+              <button
+                onClick={() => {
+                  localStorage.removeItem("cartItems");
+                  setCartItems([]);
+                  toast.success("Order placed successfully 🎉");
+                }}
+                className="w-full rounded-xl bg-orange-500 py-3 font-semibold text-white transition hover:bg-orange-600 mb-4"
+              >
+                Proceed to Checkout
+              </button>
+              <h1
+                onClick={() => {
+                  localStorage.removeItem("cartItems");
+                  setCartItems([]);
+                }}
+                className="text-red-500/70 text-center hover:text-red-500 cursor-pointer"
+              >
+                Clear all
+              </h1>
+            </div>
+          </>
+        ) : (
+          <div className="flex h-full flex-col items-center justify-center px-6 py-20 text-center">
+            <div className="rounded-full bg-orange-500/10 p-6">
+              <FiShoppingCart className="text-6xl text-orange-500" />
+            </div>
+
+            <h2 className="mt-6 text-2xl font-bold text-white">
+              Your Cart is Empty
+            </h2>
+
+            <p className="mt-3 max-w-sm text-gray-400">
+              Looks like you haven't added anything yet. Explore our products
+              and start shopping.
+            </p>
+
+            <button
+              onClick={() => {
+                return (navigate("/app/shop"), setIsCartOpen(false));
+              }}
+              className="mt-8 rounded-xl bg-orange-500 px-6 py-3 font-semibold text-white transition hover:bg-orange-600"
+            >
+              Add Products
+            </button>
           </div>
-
-          <button
-            onClick={() => {
-              localStorage.removeItem("cartItems");
-              setCartItems([]);
-              toast.success("Order placed successfully 🎉");
-            }}
-            className="w-full rounded-xl bg-orange-500 py-3 font-semibold text-white transition hover:bg-orange-600 mb-4"
-          >
-            Proceed to Checkout
-          </button>
-          <h1
-            onClick={() => {
-              localStorage.removeItem("cartItems");
-              setCartItems([]);
-            }}
-            className="text-red-500/70 text-center hover:text-red-500 cursor-pointer"
-          >
-            Clear all
-          </h1>
-        </div>
+        )}
       </aside>
     </>
   );
