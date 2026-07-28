@@ -13,7 +13,7 @@ const Cart = ({ item }) => {
       {/* Product Image */}
       <div className="flex my-auto h-22 w-20 items-center justify-center overflow-hidden rounded-xl bg-white">
         <img
-          src={item.thumbnail}
+          src={item.image}
           alt={item.title}
           className="h-full w-full object-contain"
         />

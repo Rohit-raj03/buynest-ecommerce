@@ -14,7 +14,7 @@ const ProductCard = ({ product, addItems, isInCart }) => {
       {/* Image */}
       <div className="relative overflow-hidden bg-white p-6">
         <img
-          src={product.thumbnail}
+          src={product.image}
           alt={product.title}
           className="mx-auto h-52 object-contain transition duration-500 group-hover:scale-110"
         />

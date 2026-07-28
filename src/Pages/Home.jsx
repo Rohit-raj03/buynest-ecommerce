@@ -1,5 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { FiArrowRight, FiShoppingBag } from "react-icons/fi";
+import { GiShoppingCart } from "react-icons/gi";
+import products from "../../public/products";
 import { useNavigate } from "react-router";
 import { AppContext } from "../context/AppContext";
 import Card from "../components/UI/Card";
@@ -10,10 +12,18 @@ const Home = () => {
     totalAmountOfCartItems,
     FlashSaleTimer,
     productsData,
+    category,
+    selectedCategory,
+    setSelectedCategory,
+    searchTerm,
+    setSearchTerm,
   } = useContext(AppContext);
   const { hours, minutes, seconds } = FlashSaleTimer();
   const navigate = useNavigate();
-
+  let topRatedProducts = products.filter((item) => item.rating > 4.8);
+  let topPremiumProducts = products.filter((item) => item.price > 1500);
+  topRatedProducts.splice(0, 8);
+  topPremiumProducts.splice(0, 3);
   return (
     <main className="bg-black text-white flex flex-col min-h-screen mx-auto max-w-7xl">
       {/* Hero */}
@@ -160,54 +170,52 @@ const Home = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mt-6 p-6">
-          {[
-            "Fashion",
-            "Electronics",
-            "Shoes",
-            "Beauty",
-            "Furniture",
-            "Gaming",
-          ].map((category) => (
+        <div className="flex custom-scrollbar overflow-x-auto gap-8 mt-6 p-6">
+          {category.map((category) => (
             <div
               key={category}
-              className="group rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 cursor-pointer transition-all duration-300 hover:border-orange-500 hover:-translate-y-2"
+              onClick={() => {
+                (setSelectedCategory(category), navigate("/app/shop"));
+              }}
+              className="group min-w-35 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 cursor-pointer transition-all duration-300 hover:border-orange-500 hover:-translate-y-2"
             >
-              <div className="w-16 h-16 rounded-2xl bg-orange-500/20 flex items-center justify-center text-3xl mx-auto">
-                🛍️
+              <div className="w-16 h-16 rounded-2xl bg-orange-500/5 flex items-center justify-center text-3xl mx-auto text-orange-500">
+                {<GiShoppingCart />}
               </div>
 
-              <h3 className="text-white text-center mt-5 font-semibold group-hover:text-orange-500">
+              <h3 className="text-white text-center mt-5 font-semibold group-hover:text-orange-500 capitalize">
                 {category}
               </h3>
             </div>
           ))}
         </div>
       </section>
-
       <section className="mx-auto mt-20 max-w-7xl px-6">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 border">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 ">
           {/* Top Rated */}
-          <div className="border p-8">
+          <div className=" p-8">
             <div className="mb-6 flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-white">⭐ Top Rated</h2>
+              <h2 className="text-md font-bold text-white">⭐ Top Rated</h2>
 
-              <button className="text-orange-500 hover:underline">
+              <button
+                onClick={() => navigate("/app/shop")}
+                className="text-orange-500 hover:underline"
+              >
                 See All
               </button>
             </div>
 
             <div className="space-y-4">
-              {productsData.map((val) => {
-                return <Card key={val.id} item={val} />;
-              })}
+              {topRatedProducts.map((item) => (
+                <Card key={item.id} item={item} />
+              ))}
             </div>
           </div>
 
           {/* Premium Products */}
-          <div>
+          <div className="p-8">
             <div className="mb-6 flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-white">
+              <h2 className="text-md font-bold text-white">
                 💎 Premium Products
               </h2>
 
@@ -216,7 +224,11 @@ const Home = () => {
               </button>
             </div>
 
-            <div className="space-y-4">{/* Card */}</div>
+            <div className="space-y-4">
+              {topPremiumProducts.map((item) => (
+                <Card key={item.id} item={item} />
+              ))}
+            </div>
           </div>
         </div>
       </section>

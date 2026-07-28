@@ -1,6 +1,5 @@
 import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { poducts } from "../assets/products.";
 
 export const AppContext = createContext();
 
@@ -16,6 +15,7 @@ export const ContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState(
     JSON.parse(localStorage.getItem("cartItems")) || [],
   );
+  1;
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   console.log(
@@ -23,7 +23,27 @@ export const ContextProvider = ({ children }) => {
       console.log(val.category);
     }),
   );
-  // console.log(productsData)
+
+  const [category, setCategory] = useState([
+    "smartphones",
+    "laptops",
+    "audio",
+    "wearables",
+    "tablets",
+    "accessories",
+    "cameras",
+    "drones",
+    "televisions",
+    "gaming",
+    "monitors",
+    "furniture",
+    "components",
+    "mobility",
+  ]);
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+
   const numberOfCartItems = cartItems.reduce(
     (acc, item) => acc + item.quantity,
     0,
@@ -108,6 +128,11 @@ export const ContextProvider = ({ children }) => {
         decreaseQuantity,
         removeItem,
         FlashSaleTimer,
+        category,
+        selectedCategory,
+        setSelectedCategory,
+        searchTerm,
+        setSearchTerm,
       }}
     >
       {children}

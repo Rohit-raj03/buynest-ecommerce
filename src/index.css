@@ -38,22 +38,42 @@ button {
       transform: rotate(0deg);
     }
 
-    
     25% {
       transform: rotate(180deg);
     }
-    
+
     50% {
       transform: rotate(180deg);
     }
     75% {
       transform: rotate(360deg);
     }
-    
 
     100% {
       transform: rotate(360deg);
     }
-
   }
+}
+/* index.css */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #262000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #f97316;
+  border-radius: 999px;
+  cursor: grab;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ea580c;
+  cursor: grabbing;
+}
+.custom-scrollbar::-webkit-scrollbar {
+  height: 7px;
 }

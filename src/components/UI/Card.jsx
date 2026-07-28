@@ -7,7 +7,7 @@ const Card = ({item}) => {
       {/* Left Image */}
       <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-white">
         <img
-          src={item.thumbnail}
+          src={item.image}
           alt={item.title}
           className="h-full w-full object-cover transition duration-300 group-hover:scale-110"
         />
