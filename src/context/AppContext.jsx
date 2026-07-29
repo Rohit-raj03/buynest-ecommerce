@@ -15,15 +15,29 @@ export const ContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState(
     JSON.parse(localStorage.getItem("cartItems")) || [],
   );
-  1;
+
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  console.log(
-    productsData.map((val) => {
-      console.log(val.category);
-    }),
-  );
 
+  const addItems = (id) => {
+    setCartItems((prev) => {
+      const existingItem = prev.find((item) => item.id === id);
+      let updatedItems;
+
+      if (existingItem) {
+        updatedItems = prev.map((item) =>
+          item.id === id ? { ...item, quantity: item.quantity + 1 } : item,
+        );
+      } else {
+        const product = productsData.find((item) => item.id === id);
+        updatedItems = [...prev, { ...product, quantity: 1 }];
+      }
+      localStorage.setItem("cartItems", JSON.stringify(updatedItems));
+      return updatedItems;
+    });
+    setIsCartOpen(true);
+    toast.success("Item added to cart");
+  };
   const [category, setCategory] = useState([
     "smartphones",
     "laptops",
@@ -133,6 +147,7 @@ export const ContextProvider = ({ children }) => {
         setSelectedCategory,
         searchTerm,
         setSearchTerm,
+        addItems,
       }}
     >
       {children}

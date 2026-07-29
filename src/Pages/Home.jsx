@@ -17,6 +17,7 @@ const Home = () => {
     setSelectedCategory,
     searchTerm,
     setSearchTerm,
+    addItems,
   } = useContext(AppContext);
   const { hours, minutes, seconds } = FlashSaleTimer();
   const navigate = useNavigate();
@@ -206,8 +207,8 @@ const Home = () => {
             </div>
 
             <div className="space-y-4">
-              {topRatedProducts.map((item) => (
-                <Card key={item.id} item={item} />
+              {topRatedProducts.map((val) => (
+                <Card key={val.id} item={val} />
               ))}
             </div>
           </div>
@@ -225,8 +226,8 @@ const Home = () => {
             </div>
 
             <div className="space-y-4">
-              {topPremiumProducts.map((item) => (
-                <Card key={item.id} item={item} />
+              {topPremiumProducts.map((val) => (
+                <Card key={val.id} item={val} />
               ))}
             </div>
           </div>

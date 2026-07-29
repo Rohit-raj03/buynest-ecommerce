@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AppContext } from "../../context/AppContext";
 import { FiShoppingCart } from "react-icons/fi";
 
-const Card = ({item}) => {
+const Card = ({ item }) => {
+  const { addItems } = useContext(AppContext);
+
   return (
     <div className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:border-orange-500 hover:bg-white/10">
       {/* Left Image */}
@@ -31,7 +34,12 @@ const Card = ({item}) => {
       </div>
 
       {/* Right Add Cart */}
-      <button className="rounded-xl bg-orange-500 p-3 transition hover:scale-110 hover:bg-orange-600">
+      <button
+        onClick={() => {
+          addItems(item.id);
+        }}
+        className="rounded-xl bg-orange-500 p-3 transition hover:scale-110 hover:bg-orange-600"
+      >
         <FiShoppingCart className="text-xl text-white" />
       </button>
     </div>

@@ -10,6 +10,7 @@ import Login from "../auth/Login";
 import Register from "../auth/Register";
 import ProtecterRouter from "./ProtecterRouter";
 import PublicRoute from "./PublicRoute";
+import Details from "../Pages/Details";
 
 const AppRoute = () => {
   let router = createBrowserRouter([
@@ -45,6 +46,7 @@ const AppRoute = () => {
             { path: "shop", element: <Shop /> },
             { path: "about", element: <About /> },
             { path: "contact", element: <Contact /> },
+            { path: "details/:id", element: <Details /> },
           ],
         },
       ],

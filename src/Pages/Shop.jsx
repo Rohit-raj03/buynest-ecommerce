@@ -17,13 +17,13 @@ const Shop = () => {
     setSelectedCategory,
     searchTerm,
     setSearchTerm,
+    addItems,
   } = useContext(AppContext);
 
   let getProductData = async () => {
     try {
       let res = await axios.get("/");
       setProductsData(products);
-      console.log(products.category);
     } catch (error) {
       console.log("API error", error);
     }
@@ -32,22 +32,10 @@ const Shop = () => {
     getProductData();
   }, []);
 
-  const addItems = (id) => {
-    let item = productsData.find((val) => {
-      return val.id === id;
-    });
-    setCartItems((prev) => {
-      const updatedItme = [...prev, { ...item, quantity: 1 }];
-      localStorage.setItem("cartItems", JSON.stringify(updatedItme));
-      return updatedItme;
-    });
-
-    toast.success("item add to cart");
-  };
-
   const filteredProducts = productsData.filter((item) => {
     // Category Filter
-    const matchCategory = selectedCategory === "all" || item.category === selectedCategory;
+    const matchCategory =
+      selectedCategory === "all" || item.category === selectedCategory;
 
     // Search Filter
     const matchSearch =

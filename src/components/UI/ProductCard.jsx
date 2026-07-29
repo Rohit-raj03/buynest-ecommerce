@@ -1,12 +1,13 @@
 import { React, useContext } from "react";
 import { FiShoppingCart, FiStar } from "react-icons/fi";
 import { TiTick } from "react-icons/ti";
-
 import { AppContext } from "../../context/AppContext";
+import { useNavigate, useParams } from "react-router";
 
-const ProductCard = ({ product, addItems, isInCart }) => {
-  
-  const { productsData, setProductsData, cartItems, setCartItems } =
+const ProductCard = ({ product, isInCart }) => {
+  const navigate = useNavigate();
+
+  const { productsData, setProductsData, cartItems, setCartItems, addItems } =
     useContext(AppContext);
 
   return (
@@ -14,6 +15,9 @@ const ProductCard = ({ product, addItems, isInCart }) => {
       {/* Image */}
       <div className="relative overflow-hidden bg-white p-6">
         <img
+          onClick={() => {
+            navigate(`/app/details/${product.id}`);
+          }}
           src={product.image}
           alt={product.title}
           className="mx-auto h-52 object-contain transition duration-500 group-hover:scale-110"

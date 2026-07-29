@@ -6,8 +6,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 
 const CartSidebar = () => {
-  
-  const navigate = useNavigate() 
+  const navigate = useNavigate();
   const {
     cartItems,
     setCartItems,
@@ -16,7 +15,6 @@ const CartSidebar = () => {
     numberOfCartItems,
     totalAmountOfCartItems,
   } = useContext(AppContext);
-console.log(numberOfCartItems)
   return (
     <>
       {/* Overlay */}
