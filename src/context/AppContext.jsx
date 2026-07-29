@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import products from "../../public/products";
 
 export const AppContext = createContext();
 
@@ -11,7 +12,7 @@ export const ContextProvider = ({ children }) => {
     localStorage.getItem("loggedInUser"),
   );
 
-  const [productsData, setProductsData] = useState([]);
+  const [productsData, setProductsData] = useState(products);
   const [cartItems, setCartItems] = useState(
     JSON.parse(localStorage.getItem("cartItems")) || [],
   );

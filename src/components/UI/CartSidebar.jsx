@@ -52,7 +52,7 @@ const CartSidebar = () => {
         {numberOfCartItems ? (
           <>
             <div className="h-[calc(100vh-250px)] space-y-4 overflow-y-auto p-6">
-              {cartItems.map((elem, index) => {
+              {cartItems.map((elem) => {
                 return <Cart key={elem.id} item={elem} />;
               })}
             </div>
